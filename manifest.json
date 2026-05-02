@@ -1,0 +1,62 @@
+{
+  "id": "quote_of_day",
+  "name": "Quote of the Day",
+  "version": "0.1.0",
+  "description": "Display a daily inspirational quote from ZenQuotes.",
+  "author": "FiestaBoard Team",
+  "icon": "quote",
+  "category": "utility",
+  "repository": "https://github.com/Fiestaboard/fiestaboard-plugin--quote-of-day",
+  "documentation": "README.md",
+  "min_refresh_seconds": 3600,
+  "settings_schema": {
+    "type": "object",
+    "properties": {
+      "enabled": {
+        "type": "boolean",
+        "title": "Enabled",
+        "default": false
+      },
+      "refresh_seconds": {
+        "type": "integer",
+        "title": "Refresh Interval (seconds)",
+        "description": "How often to refresh. ZenQuotes returns the same quote all day.",
+        "default": 3600,
+        "minimum": 3600
+      }
+    },
+    "required": []
+  },
+  "variables": {
+    "groups": {
+      "quote": {
+        "label": "Quote"
+      }
+    },
+    "simple": {
+      "quote": {
+        "description": "Full quote text",
+        "type": "string",
+        "max_length": 22,
+        "group": "quote",
+        "example": "Do it with passion"
+      },
+      "author": {
+        "description": "Quote author",
+        "type": "string",
+        "max_length": 20,
+        "group": "quote",
+        "example": "Rosa Parks"
+      }
+    }
+  },
+  "screenshots": [
+    {
+      "src": "docs/board-display.png",
+      "alt": "Quote of the Day displayed on a Vestaboard",
+      "caption": "Example board output using the default template",
+      "primary": true
+    }
+  ],
+  "api_docs": "https://zenquotes.io/"
+}
