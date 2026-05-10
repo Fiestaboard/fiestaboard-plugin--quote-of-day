@@ -1,7 +1,7 @@
 {
   "id": "quote_of_day",
   "name": "Quote of the Day",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Display a daily inspirational quote from ZenQuotes.",
   "author": "FiestaBoard Team",
   "icon": "quote",
@@ -58,5 +58,47 @@
       "primary": true
     }
   ],
-  "api_docs": "https://zenquotes.io/"
+  "api_docs": "https://zenquotes.io/",
+  "demo": {
+    "name": "Quote of the Day Demo",
+    "device_type": "flagship",
+    "config": {
+      "enabled": true,
+      "refresh_seconds": 3600
+    },
+    "template": [
+      "Quote of the Day",
+      "",
+      "{{quote_of_day.quote}}",
+      "",
+      "",
+      "- {{quote_of_day.author}}"
+    ],
+    "line_metadata": [
+      {
+        "alignment": "center",
+        "wrap": false
+      },
+      {
+        "alignment": "left",
+        "wrap": false
+      },
+      {
+        "alignment": "left",
+        "wrap": true
+      },
+      {
+        "alignment": "left",
+        "wrap": false
+      },
+      {
+        "alignment": "left",
+        "wrap": false
+      },
+      {
+        "alignment": "right",
+        "wrap": false
+      }
+    ]
+  }
 }
