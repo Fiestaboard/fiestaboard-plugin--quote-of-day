@@ -110,3 +110,49 @@ class TestQuoteOfDayPlugin:
 
         assert result.available is False
 
+    @patch("plugins.quote_of_day.time.sleep")
+    @patch("plugins.quote_of_day.requests.get")
+    def test_retries_on_connection_error(self, mock_get, mock_sleep, configured_plugin):
+        """Connection errors are retried before giving up (fixes issue #807)."""
+        import requests as req_mod
+        mock_get.side_effect = req_mod.exceptions.ConnectionError("Connection reset by peer")
+
+        result = configured_plugin.fetch_data()
+
+        from plugins.quote_of_day import _MAX_RETRIES
+        assert mock_get.call_count == _MAX_RETRIES + 1, "Should retry _MAX_RETRIES times"
+        assert result.available is False
+
+    @patch("plugins.quote_of_day.time.sleep")
+    @patch("plugins.quote_of_day.requests.get")
+    def test_succeeds_on_second_attempt(self, mock_get, mock_sleep, configured_plugin):
+        """A transient error is recovered on retry."""
+        import requests as req_mod
+        good_response = Mock()
+        good_response.json.return_value = SAMPLE_RESPONSE
+        good_response.raise_for_status = Mock()
+        mock_get.side_effect = [
+            req_mod.exceptions.ConnectionError("transient"),
+            good_response,
+        ]
+
+        result = configured_plugin.fetch_data()
+
+        assert result.available is True
+        assert result.data["quote"] == "Do what you can, with what"[:22]
+
+    @patch("plugins.quote_of_day.requests.get")
+    def test_request_includes_user_agent(self, mock_get, configured_plugin):
+        """Requests must include a browser-compatible User-Agent."""
+        good_response = Mock()
+        good_response.json.return_value = SAMPLE_RESPONSE
+        good_response.raise_for_status = Mock()
+        mock_get.return_value = good_response
+
+        configured_plugin.fetch_data()
+
+        _, kwargs = mock_get.call_args
+        headers = kwargs.get("headers", {})
+        assert "User-Agent" in headers
+        assert "FiestaBoard" in headers["User-Agent"]
+
