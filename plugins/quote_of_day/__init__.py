@@ -46,8 +46,8 @@ class QuoteOfDayPlugin(PluginBase):
                     return PluginResult(available=False, error="Unexpected response format")
 
                 quote_obj = data[0]
-                quote = str(quote_obj.get("q", ""))[:22]
-                author = str(quote_obj.get("a", "Unknown"))[:20]
+                quote = str(quote_obj.get("q", ""))
+                author = str(quote_obj.get("a", "Unknown"))
 
                 return PluginResult(
                     available=True,
