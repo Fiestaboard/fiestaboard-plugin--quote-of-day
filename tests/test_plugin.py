@@ -139,7 +139,7 @@ class TestQuoteOfDayPlugin:
         result = configured_plugin.fetch_data()
 
         assert result.available is True
-        assert result.data["quote"] == "Do what you can, with what"
+        assert result.data["quote"] == "Do what you can, with what you have, where you are."
 
     @patch("plugins.quote_of_day.requests.get")
     def test_request_includes_user_agent(self, mock_get, configured_plugin):
