@@ -58,6 +58,28 @@
       "primary": true
     }
   ],
+  "teaser": "DAILY QUOTE",
+  "previews": [
+    {
+      "device_type": "flagship",
+      "rows": [
+        "   Quote of the Day",
+        "",
+        "Do it with passion",
+        "",
+        "",
+        "          - Rosa Parks"
+      ]
+    },
+    {
+      "device_type": "note",
+      "rows": [
+        "DO IT WITH",
+        "PASSION",
+        "{68}- ROSA PARKS"
+      ]
+    }
+  ],
   "api_docs": "https://zenquotes.io/",
   "demo": {
     "flagship": {
